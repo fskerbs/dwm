@@ -1,0 +1,38 @@
+From c2fd4ef7e679117a2af56eb09f773f30b9537998 Mon Sep 17 00:00:00 2001
+From: fskerbs <fskerbs@protonmail.com>
+Date: Tue, 13 Oct 2026 22:06:18 +0200
+Subject: [PATCH] Handle dmenu with .desktop files patch
+
+---
+ config.def.h | 1 +
+ dwm.c        | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 81c3fc0..94cd676 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -59,6 +59,7 @@ static const Layout layouts[] = {
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
++static const char *dmenuapp[] = { "dmenu_run_desktop", "-i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+ static const char *termcmd[]  = { "st", NULL };
+ 
+ static const Key keys[] = {
+diff --git a/dwm.c b/dwm.c
+index ab3a84c..434efee 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1649,7 +1649,7 @@ spawn(const Arg *arg)
+ {
+ 	struct sigaction sa;
+ 
+-	if (arg->v == dmenucmd)
++	if (arg->v == dmenucmd || arg->v == dmenuapp)
+ 		dmenumon[0] = '0' + selmon->num;
+ 	if (fork() == 0) {
+ 		if (dpy)
+-- 
+2.55.0
+

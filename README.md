@@ -5,7 +5,7 @@ dwm is a dynamic window manager for X. It manages windows in tiled, monocle and 
 These are my personal patches for it.
 ## Switching themes
 At the start of config.def.h, include your desired theme from the themes folder. Example:
-`#include "/home/stvka/git/suckless/dwm/themes/void.h"`
+`#include "themes/steam.h"`
 
 After that comment out the following lines:
 ```C
